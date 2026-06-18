@@ -74,9 +74,9 @@ If targeted interventions (overtime caps, first-year onboarding, salary correcti
 ![Insights](dashboard_page4_insights.png)
 
 ## Repository Structure
-├── HR_Attrition_Cleaned.csv          # Cleaned dataset
-├── HR_Attrition_Analysis.ipynb       # Python EDA, statistical test, ML model
-├── sql_queries.sql                   # All 10 business-question queries
-├── HR_Attrition_Dashboard.pbix        # Power BI dashboard file
-├── charts/                           # All 10 exported chart images
-└── README.md
+1HR_Attrition_Cleaned.csv   # Cleaned dataset
+HR_Attrition_Analysis.ipynb       # Python EDA, statistical test, ML model
+sql_queries.sql                   # All 10 business-question queries
+HR_Attrition_Dashboard.pbix        # Power BI dashboard file
+charts/                           # All 10 exported chart images
+README.md
