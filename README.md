@@ -65,14 +65,13 @@ If targeted interventions (overtime caps, first-year onboarding, salary correcti
 ### Executive Summary
 ![Executive Summary](dashboard_page1_executive.png)
 
-### Risk Analysis
-![Risk Analysis](charts/dashboard_page2_risk.png)
+![Risk Analysis](dashboard_page2_risk.png)
 
 ### Employee Demographics
-![Demographics](charts/dashboard_page3_demographics.png)
+![Demographics](dashboard_page3_demographics.png)
 
 ### Insights & Recommendations
-![Insights](charts/dashboard_page4_insights.png)
+![Insights](dashboard_page4_insights.png)
 
 ## Repository Structure
 ├── HR_Attrition_Cleaned.csv          # Cleaned dataset
