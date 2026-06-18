@@ -1,0 +1,151 @@
+HR EMPLOYEE ATTRITION ANALYSIS-SQL QUERIES
+Database: hr_attrition | Table: employee_attrition
+
+USE hr_attrition;
+Q1. Overall Attrition Rate
+Finding: 16.1% overall attrition-above industry benchmark
+SELECT 
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS total_attrition,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition;
+
+
+Q2. Attrition By Department
+Finding: Sales highest at 20.63%, R&D lowest at 13.84%
+
+SELECT 
+    Department,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY Department
+ORDER BY attrition_rate_percent DESC;
+
+
+Q3. Attrition By Overtime
+Finding: Overtime employees leave at 30.53% vs 10.44% — 3x risk
+
+SELECT 
+    OverTime,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY OverTime
+ORDER BY attrition_rate_percent DESC;
+
+
+ Q4. Attrition By Job Role
+Finding: Sales Representatives highest risk at 39.76%
+
+SELECT 
+    JobRole,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY JobRole
+ORDER BY attrition_rate_percent DESC;
+
+
+
+Q5. Attrition By Salary Band
+Finding: Below 3K band loses 28.61% vs 8.90% for Above 10K
+
+SELECT 
+    CASE 
+        WHEN MonthlyIncome < 3000 THEN 'Below 3K'
+        WHEN MonthlyIncome BETWEEN 3000 AND 6000 THEN '3K - 6K'
+        WHEN MonthlyIncome BETWEEN 6001 AND 10000 THEN '6K - 10K'
+        ELSE 'Above 10K'
+    END AS salary_band,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY salary_band
+ORDER BY attrition_rate_percent DESC;
+
+
+
+Q6. Attrition By Job Satisfaction
+Finding: Even "Very High" satisfaction still sees 11.33% attrition
+SELECT 
+    JobSatisfaction,
+    CASE JobSatisfaction
+        WHEN 1 THEN 'Low'
+        WHEN 2 THEN 'Medium'
+        WHEN 3 THEN 'High'
+        WHEN 4 THEN 'Very High'
+    END AS satisfaction_label,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY JobSatisfaction, satisfaction_label
+ORDER BY JobSatisfaction;
+
+
+Q7. Attrition By Years At Company (Tenure)
+Finding: 0-1 years band has highest attrition at 34.88%
+SELECT 
+    CASE 
+        WHEN YearsAtCompany <= 1 THEN '0-1 Years'
+        WHEN YearsAtCompany BETWEEN 2 AND 5 THEN '2-5 Years'
+        WHEN YearsAtCompany BETWEEN 6 AND 10 THEN '6-10 Years'
+        ELSE 'Above 10 Years'
+    END AS tenure_band,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY tenure_band
+ORDER BY attrition_rate_percent DESC;
+
+ Q8. Attrition By Age Group
+Finding: Under 25 age group has highest attrition at 39.18%
+SELECT 
+    CASE 
+        WHEN Age < 25 THEN 'Under 25'
+        WHEN Age BETWEEN 25 AND 34 THEN '25-34'
+        WHEN Age BETWEEN 35 AND 44 THEN '35-44'
+        ELSE 'Above 44'
+    END AS age_group,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY age_group
+ORDER BY attrition_rate_percent DESC;
+
+
+ Q9. Attrition By Business Travel Frequency
+Finding: Frequent travelers churn at 24.91% vs 8.00% for non-travelers
+
+SELECT 
+    BusinessTravel,
+    COUNT(*) AS total_employees,
+    SUM(Attrition_Num) AS employees_left,
+    ROUND(SUM(Attrition_Num) * 100.0 / COUNT(*), 2) AS attrition_rate_percent
+FROM employee_attrition
+GROUP BY BusinessTravel
+ORDER BY attrition_rate_percent DESC;
+
+Q10. High Risk Employee Profile (Segment Drill-Down)
+Finding: Sales Reps & Lab Technicians on overtime with low 
+salary represent the highest-volume risk segments
+SELECT 
+    JobRole,
+    Department,
+    OverTime,
+    ROUND(AVG(MonthlyIncome), 0) AS avg_income,
+    ROUND(AVG(YearsAtCompany), 1) AS avg_tenure,
+    ROUND(AVG(JobSatisfaction), 1) AS avg_satisfaction,
+    COUNT(*) AS employees_left
+FROM employee_attrition
+WHERE Attrition = 'Yes'
+GROUP BY JobRole, Department, OverTime
+ORDER BY employees_left DESC
+LIMIT 10;
