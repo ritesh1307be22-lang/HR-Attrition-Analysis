@@ -63,7 +63,7 @@ If targeted interventions (overtime caps, first-year onboarding, salary correcti
 
 ## Dashboard Preview
 ### Executive Summary
-![Executive Summary](charts/dashboard_page1_executive.png)
+dashboard_page1_executive.png
 
 ### Risk Analysis
 ![Risk Analysis](charts/dashboard_page2_risk.png)
