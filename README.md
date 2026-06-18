@@ -62,7 +62,17 @@ If targeted interventions (overtime caps, first-year onboarding, salary correcti
 4. **Introduce a travel rotation policy** so no employee is on frequent travel assignments for more than 6 consecutive months.
 
 ## Dashboard Preview
-*( dashboard_page1_executive.png, dashboard_page2_risk.png, dashboard_page3_demographics.png, dashboard_page4_insights.png)*
+### Executive Summary
+![Executive Summary](charts/dashboard_page1_executive.png)
+
+### Risk Analysis
+![Risk Analysis](charts/dashboard_page2_risk.png)
+
+### Employee Demographics
+![Demographics](charts/dashboard_page3_demographics.png)
+
+### Insights & Recommendations
+![Insights](charts/dashboard_page4_insights.png)
 
 ## Repository Structure
 ├── HR_Attrition_Cleaned.csv          # Cleaned dataset
